@@ -41,6 +41,7 @@ class CommentDetails(generics.RetrieveUpdateDestroyAPIView):
     
 '''this part handles messaging accross users'''
 
+    
 class MessageList(generics.ListCreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
