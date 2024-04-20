@@ -1,12 +1,13 @@
 from rest_framework import generics
+from django.contrib.auth.models import User
 
 
-from fanz_app.models import Post, Like, Comment, Message
-from .serializers import PostSerializer, LikeSerializer, CommentSerializer, MessageSerializer
+from fanz_app.models import Post, Comment, Message
+from .serializers import PostSerializer,CommentSerializer, MessageSerializer
 
 '''this part handles posts accross users'''
 
-class PostList(generics.ListAPIView):
+class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     
@@ -15,25 +16,27 @@ class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostSerializer
     
 
-'''this part handles likes accross users'''
-
-class LikeList(generics.ListCreateAPIView):
-    queryset = Like.objects.all()
-    serializer_class = "LikeSerializer"
-
-class LikeDetails(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Like.objects.all()
-    serializer_class = "LikeSerializer"
-    
-
 '''this part handles comments accross users'''
 
-class CommentList(generics.ListCreateAPIView):
-    queryset = Like.objects.all()
+class CommentList(generics.ListAPIView):
+   
     serializer_class = CommentSerializer
+    
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Comment.objects.filter(user=pk)
+    
+class CommentCreate(generics.CreateAPIView):
+
+    serializer_class = CommentSerializer
+    
+    def perform_create(self, serializer):
+        pk = self.kwargs.get('pk')
+        post = Post.objects.get(pk=pk)
+        serializer.save(post=post)
 
 class CommentDetails(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Like.objects.all()
+    queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     
 '''this part handles messaging accross users'''
