@@ -3,7 +3,8 @@ from . views import PostList, PostDetail, CommentList, CommentDetails,CommentCre
 
 urlpatterns = [
    path("post/",PostList.as_view(),name="post_list"),
-   path("post/<int:pk>/detail/",PostList.as_view(),name="post_detials"),
+   
+   path("post/<int:pk>/detail/",PostDetail.as_view(),name="post_detials"),
    
    path("post/<int:pk>/comment/",CommentList.as_view(),name="comment_list"),
    

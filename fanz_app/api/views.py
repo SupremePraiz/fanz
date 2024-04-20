@@ -24,7 +24,7 @@ class CommentList(generics.ListAPIView):
     
     def get_queryset(self):
         pk = self.kwargs['pk']
-        return Comment.objects.filter(user=pk)
+        return Comment.objects.filter(post=pk)
     
 class CommentCreate(generics.CreateAPIView):
 
