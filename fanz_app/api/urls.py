@@ -13,7 +13,7 @@ urlpatterns = [
    path("message/<int:pk>/",MessageList.as_view(),name="message_list"),
    path("message/<int:pk>/detail/",MessageDetails.as_view(),name="message_ details"),
    
-   path("subscription/<int:pk>/",SubscriptionList.as_view(),name="subscription_list"),
+   path("<int:pk>/subscription/",SubscriptionList.as_view(),name="subscription_list"),
    path("subscription/<int:pk>/details/",SubscriptionDetails.as_view(),name="subscription_detail"),
    path("subscription-create/",SubscriptionCreate.as_view(),name="subscription-create"),
 ]

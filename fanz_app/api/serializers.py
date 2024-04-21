@@ -4,13 +4,15 @@ from fanz_app.models import Post, Comment, Message, Subscription
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
     
     class Meta:
         model = Comment
         fields = "__all__"
 
 class PostSerializer(serializers.ModelSerializer):
-    comment = CommentSerializer(many=True, read_only=True)
+    comments = CommentSerializer(many=True, read_only=True)
+    user = serializers.StringRelatedField(read_only=True)
     
     class Meta:
         model = Post
@@ -32,7 +34,8 @@ class MessageSerializer(serializers.ModelSerializer):
         fields = "__all__"
         
 class SubscriptionSerializer(serializers.ModelSerializer):
-    
+    subscriber = serializers.StringRelatedField(read_only=True)
+    creator = serializers.StringRelatedField(read_only=True)
     
     class Meta:
         model = Subscription
