@@ -12,7 +12,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.user.username} - {self.type}'
+        return f'{self.caption} - {self.type}'
 
 
 class Comment(models.Model):
@@ -22,6 +22,8 @@ class Comment(models.Model):
     rate = models.IntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(5)],null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self):
+        return self.text
 
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
@@ -32,3 +34,13 @@ class Message(models.Model):
 
     def __str__(self):
         return f'{self.sender.username} to {self.recipient.username} - {self.created_at}'
+    
+    
+class Subscription(models.Model):
+    subscriber = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscriptions')
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='subscribers')
+    start_date = models.DateTimeField(auto_now_add=True)
+    # Add other details as needed
+
+    def __str__(self):
+        return f"{self.subscriber} subscribed to {self.creator}'s content"

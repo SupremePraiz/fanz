@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from fanz_app.models import Post, Comment, Message
+from fanz_app.models import Post, Comment, Message, Subscription
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -29,4 +29,11 @@ class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
+        fields = "__all__"
+        
+class SubscriptionSerializer(serializers.ModelSerializer):
+    
+    
+    class Meta:
+        model = Subscription
         fields = "__all__"

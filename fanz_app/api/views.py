@@ -2,8 +2,8 @@ from rest_framework import generics
 from django.contrib.auth.models import User
 
 
-from fanz_app.models import Post, Comment, Message
-from .serializers import PostSerializer,CommentSerializer, MessageSerializer
+from fanz_app.models import Post, Comment, Message, Subscription
+from .serializers import PostSerializer,CommentSerializer, MessageSerializer, SubscriptionSerializer
 
 '''this part handles posts accross users'''
 
@@ -49,3 +49,20 @@ class MessageList(generics.ListCreateAPIView):
 class MessageDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+    
+    
+class SubscriptionList(generics.ListAPIView):
+  
+    serializer_class = SubscriptionSerializer
+    
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Subscription.objects.filter(creator=pk)
+    
+class SubscriptionCreate(generics.CreateAPIView):
+    queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer
+    
+class SubscriptionDetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer

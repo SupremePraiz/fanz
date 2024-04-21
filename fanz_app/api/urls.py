@@ -1,5 +1,6 @@
 from django.urls import path
-from . views import PostList, PostDetail, CommentList, CommentDetails,CommentCreate, MessageList, MessageDetails
+from . views import (PostList, PostDetail, CommentList, CommentDetails,CommentCreate, 
+                     MessageList, MessageDetails, SubscriptionList,SubscriptionDetails,SubscriptionCreate)
 
 urlpatterns = [
    path("post/",PostList.as_view(),name="post_list"),
@@ -11,4 +12,8 @@ urlpatterns = [
    
    path("message/<int:pk>/",MessageList.as_view(),name="message_list"),
    path("message/<int:pk>/detail/",MessageDetails.as_view(),name="message_ details"),
+   
+   path("subscription/<int:pk>/",SubscriptionList.as_view(),name="subscription_list"),
+   path("subscription/<int:pk>/details/",SubscriptionDetails.as_view(),name="subscription_detail"),
+   path("subscription-create/",SubscriptionCreate.as_view(),name="subscription-create"),
 ]
