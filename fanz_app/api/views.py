@@ -51,6 +51,8 @@ class MessageDetails(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MessageSerializer
     
     
+'''this part handles Subscription accross users'''
+
 class SubscriptionList(generics.ListAPIView):
   
     serializer_class = SubscriptionSerializer
