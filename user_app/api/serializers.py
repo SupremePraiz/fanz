@@ -3,14 +3,15 @@ from django.contrib.auth.models import User
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(style={"input_type":"password"},write_only=True)
     password2 = serializers.CharField(style={"input_type":"password"},write_only=True)
     
     class Meta:
         model = User
-        feilds = ["username", "email", "password", "password2"]
-        extra_kwargs ={
-                       "password":{"write_only": True},
-                        }
+        fields = ["username", "email", "password", "password2"]
+        # extra_kwargs ={
+        #                "password":({"write_only": True}),
+        #                 }
         
         def save(self):
             password = self.validated_data["password"]

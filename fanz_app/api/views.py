@@ -1,15 +1,19 @@
 from rest_framework import generics
 from django.contrib.auth.models import User
 
-
+from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 from fanz_app.models import Post, Comment, Message, Subscription
 from .serializers import PostSerializer,CommentSerializer, MessageSerializer, SubscriptionSerializer
 
 '''this part handles posts accross users'''
-
 class PostList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    serializer_class =PostSerializer
+
+# class PostList(generics.ListCreateAPIView):
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializer
+#     permission_classes = [IsOwnerOrReadOnly]
     
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
